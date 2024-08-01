@@ -75,6 +75,19 @@ app.delete("/jokes/:id",(req,res)=>{
   }
 });
 //8. DELETE All jokes
+const masterKeys = "4VGP2ND-6EWM4SJ-N6FGRHV-Z3PR3TT";
+
+app.delete("/all", (req, res) => {
+  const userKey = req.query.key;
+  if (userKey === masterKeys) {
+    jokes = [];
+    res.sendStatus(200);
+  } else {
+    res
+      .status(404)
+      .json({ error: "You are not authorized to perform this action." });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Successfully started server on port ${port}.`);
